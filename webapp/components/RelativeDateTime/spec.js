@@ -34,6 +34,10 @@ describe('RelativeDateTime', () => {
     it('translates', () => {
       expect(Wrapper().text()).toContain('08/03/2017')
     })
+
+    it('keeps the time visible for old dates', () => {
+      expect(Wrapper().text()).toContain('12:00 AM')
+    })
   })
 
   describe('given a Date object as dateTime', () => {
@@ -73,6 +77,18 @@ describe('RelativeDateTime', () => {
       it('translates', () => {
         expect(Wrapper().text()).toContain('heute um')
       })
+    })
+  })
+
+  describe('given a Date object older than the relative date window', () => {
+    beforeEach(() => {
+      locale = 'en'
+      dateTime = new Date(2017, 2, 8, 17, 45)
+    })
+
+    it('renders the absolute date with time', () => {
+      expect(Wrapper().text()).toContain('03/08/2017')
+      expect(Wrapper().text()).toContain('5:45 PM')
     })
   })
 })
