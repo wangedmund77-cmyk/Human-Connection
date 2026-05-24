@@ -1,5 +1,5 @@
 <template>
-  <span>{{ relativeDateTime }}</span>
+  <span :title="absoluteDateTime">{{ relativeDateTime }}</span>
 </template>
 
 <script>
@@ -19,16 +19,23 @@ export default {
     },
   },
   computed: {
+    date() {
+      return new Date(this.dateTime)
+    },
+    dateFnsLocale() {
+      return getDateFnsLocale(this)
+    },
+    absoluteDateTime() {
+      return format(this.date, 'Pp', { locale: this.dateFnsLocale })
+    },
     relativeDateTime() {
-      const date = new Date(this.dateTime)
-      const locale = getDateFnsLocale(this)
-      const calendarDayDistance = Math.abs(differenceInCalendarDays(date, new Date()))
+      const calendarDayDistance = Math.abs(differenceInCalendarDays(this.date, new Date()))
 
       if (calendarDayDistance > RELATIVE_DATE_WINDOW_DAYS) {
-        return format(date, 'Pp', { locale })
+        return this.absoluteDateTime
       }
 
-      return formatRelative(date, new Date(), { locale })
+      return formatRelative(this.date, new Date(), { locale: this.dateFnsLocale })
     },
   },
 }

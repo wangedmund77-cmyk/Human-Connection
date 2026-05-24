@@ -90,5 +90,9 @@ describe('RelativeDateTime', () => {
       expect(Wrapper().text()).toContain('03/08/2017')
       expect(Wrapper().text()).toContain('5:45 PM')
     })
+
+    it('sets the absolute date with time as title', () => {
+      expect(Wrapper().attributes('title')).toBe('03/08/2017, 5:45 PM')
+    })
   })
 })
