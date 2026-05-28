@@ -46,7 +46,7 @@ describe('RelativeDateTime', () => {
     })
 
     it('renders', () => {
-      expect(Wrapper().is('span')).toBe(true)
+      expect(Wrapper().is('time')).toBe(true)
     })
 
     describe("locale == 'en'", () => {
@@ -93,6 +93,10 @@ describe('RelativeDateTime', () => {
 
     it('sets the absolute date with time as title', () => {
       expect(Wrapper().attributes('title')).toBe('03/08/2017, 5:45 PM')
+    })
+
+    it('sets a machine-readable datetime attribute', () => {
+      expect(Wrapper().attributes('datetime')).toBe(dateTime.toISOString())
     })
   })
 })

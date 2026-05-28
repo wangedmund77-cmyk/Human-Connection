@@ -1,5 +1,5 @@
 <template>
-  <span :title="absoluteDateTime">{{ relativeDateTime }}</span>
+  <time :datetime="machineDateTime" :title="absoluteDateTime">{{ relativeDateTime }}</time>
 </template>
 
 <script>
@@ -27,6 +27,9 @@ export default {
     },
     absoluteDateTime() {
       return format(this.date, 'Pp', { locale: this.dateFnsLocale })
+    },
+    machineDateTime() {
+      return this.date.toISOString()
     },
     relativeDateTime() {
       const calendarDayDistance = Math.abs(differenceInCalendarDays(this.date, new Date()))
